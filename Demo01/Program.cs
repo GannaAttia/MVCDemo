@@ -42,8 +42,9 @@ namespace Demo01
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
-
+            // End of the HTTP request pipeline configuration.
             app.Run();
+            // End of the Main method & Nothing after this line will be executed.
         }
     }
 }
