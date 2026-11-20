@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Demo01
 {
     public class Program
@@ -9,9 +11,20 @@ namespace Demo01
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            #region Services 
+            // Add services to the container for API controllers.
+            //builder.Services.AddControllers();
+
+            // Add  Additional services to the container .
+            //builder.Services.AddMvc();
+
+            // Add services to the container for Razor Pages.
+            //builder.Services.AddRazorPages();
+            #endregion
+
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline(MiddleWares"Gates").
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
