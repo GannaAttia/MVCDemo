@@ -1,3 +1,4 @@
+using Demo01.CustomMiddleware;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Demo01
@@ -24,20 +25,38 @@ namespace Demo01
 
             var app = builder.Build();
 
+            #region Custom Middleware
+            //app.Use(async (context , next) => {
+            //    Console.WriteLine("Hello"); // Request 
+            //    await next.Invoke();
+            //    Console.WriteLine("Bye"); // Response
+            //} );
+
+            #endregion
+            app.UseMiddleware<RequestTimeMiddleware>();
+
+
+
             // Configure the HTTP request pipeline(MiddleWares"Gates").
             if (!app.Environment.IsDevelopment())
             {
+                // Handle exceptions and display a custom error page in production.
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            // Enable HTTPS redirection to ensure secure communication
             app.UseHttpsRedirection();
+            // define which Conroller will handle the request , which action 
             app.UseRouting();
-
+            // Identity (Cookie - JWT )
+            app.UseAuthentication();
+            // Authorization (Roles - Policies - Claims)
             app.UseAuthorization();
 
+            // Serve static files (CSS, JS, images, etc.) from the wwwroot folder .NET 9
             app.MapStaticAssets();
+            // Patterns for routing incoming requests to the appropriate controllers and actions.
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
