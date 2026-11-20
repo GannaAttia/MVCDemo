@@ -33,7 +33,7 @@ namespace Demo01
             //} );
 
             #endregion
-            app.UseMiddleware<RequestTimeMiddleware>();
+            //app.UseMiddleware<RequestTimeMiddleware>();
 
 
 
@@ -56,12 +56,34 @@ namespace Demo01
 
             // Serve static files (CSS, JS, images, etc.) from the wwwroot folder .NET 9
             app.MapStaticAssets();
+
+            app.MapControllerRoute(
+                    name: "shop",
+                    pattern:"shop/{id}",
+                    defaults: new { 
+                        controller = "Product",
+                        action = "GetProductById"
+                    }
+                ).WithStaticAssets();
+            
+            // Convention Routing: 
+            // BaseUrl => Home Controller , Index Action
+            // BasUrl/Product => Product Controller , Index Action
+            // BaseUrl/Product/GetProducts => Product Controller , GetProducts Action
+            // BaseUrl/Product/GetProductById/1 => Product Controller , GetProductById Action , id = 1
+
             // Patterns for routing incoming requests to the appropriate controllers and actions.
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
-            // End of the HTTP request pipeline configuration.
+
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{action=Index}/{id?}")
+            //    .WithStaticAssets();
+               
+
             app.Run();
             // End of the Main method & Nothing after this line will be executed.
         }
