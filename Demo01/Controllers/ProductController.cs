@@ -3,9 +3,56 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo01.Controllers
 {
-    [Route("Test")]
+    //[Route("Test")]
     public class ProductController : Controller
     {
+
+        [HttpGet]
+        public IActionResult GetById([FromQuery]int Id , [FromQuery(Name = "id2")] int OtherId)
+        {
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+        // GET -> BaseUrl/Product/Search => id=0
+        // GET -> BaseUrl/Product/Search/10 => id=0
+        // GET -> BaseUrl/Product/Search?id=20 => id=20 [Bind from Query]
+        // GET -> BaseUrl/Product/Search/10?id=20 => id=10 in order will take it from route
+        // I can Choose the Source of the value by using [FromQuery] or [FromRoute] or [FromHeader] or [FromForm] or [FromBody]
+        //[HttpGet]
+        //public IActionResult Search([FromQuery]int id )
+        //{
+        //    return View();
+        //}// Simple Parameter
+
+        // GET -> BaseUrl/Product/Search?term=phone&minPrice=100&page=1
+        // GET -> BaseUrl/Product/Search?term=phone&page=1
+        // GET -> BaseUrl/Product/Search?minPrice=100&page=1
+        // GET -> BaseUrl/Product/Search?page=1
+        // GET -> BaseUrl/Product/Search // Default Values 
+        // Rapping inside Obj
+        //[HttpGet]
+        //public IActionResult Search(string? term , decimal? minPrice , int page)
+        //{
+        //    return View();
+        //}// Simple Parameter
+
+        [HttpGet]
+        public IActionResult Search(ProductFilter productFilter)
+        {
+            return View();
+        }// Complex Parameter 
+
+
+
+
         // Discard Convention Routing
         // Routing : GET -> BaseUrl/Product/JsonAction
         [HttpGet("json")]
