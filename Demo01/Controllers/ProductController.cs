@@ -15,7 +15,7 @@ namespace Demo01.Controllers
         }
         // Not Accept cause it called Id
         // GET -> BaseUrl/Product/GetProductByCode/code=1 
-        [HttpGet("ProductCode/{code}")]
+        [HttpGet("ProductCode/{code:int}")]
         public IActionResult GetProductByCode(int code)
         {
             return Json(new Product() { Id= code , Name="Phone"});
