@@ -65,7 +65,7 @@ namespace Demo01
                         action = "GetProductById"
                     }
                 ).WithStaticAssets();
-            
+
             // Convention Routing: 
             // BaseUrl => Home Controller , Index Action
             // BasUrl/Product => Product Controller , Index Action
@@ -78,11 +78,13 @@ namespace Demo01
                 pattern: "{controller=Home}/{action=Index}/{id?}")
                 .WithStaticAssets();
 
+
+
             //app.MapControllerRoute(
             //    name: "default",
             //    pattern: "{controller=Home}/{action=Index}/{id?}")
             //    .WithStaticAssets();
-               
+
 
             app.Run();
             // End of the Main method & Nothing after this line will be executed.

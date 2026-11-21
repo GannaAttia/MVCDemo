@@ -3,8 +3,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Demo01.Controllers
 {
+    [Route("Test")]
     public class ProductController : Controller
     {
+        // Discard Convention Routing
+        // Routing : GET -> BaseUrl/Product/JsonAction
+        [HttpGet("json")]
+        public IActionResult JsonAction()
+        {
+            return Json("Hello From Json Action");
+        }
+        // Not Accept cause it called Id
+        // GET -> BaseUrl/Product/GetProductByCode/code=1 
+        [HttpGet("ProductCode/{code}")]
+        public IActionResult GetProductByCode(int code)
+        {
+            return Json(new Product() { Id= code , Name="Phone"});
+        }
 
         #region Action
         // Attributes: [HttpGet], [HttpPost], [HttpPut], [HttpDelete], [HttpPatch], [HttpHead], [HttpOptions]
